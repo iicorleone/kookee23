@@ -8,6 +8,14 @@ st.write("We are so glad to see you here. ✨ "
          "This app is going to have a quick walkthrough with you on "
          "how to make an interactive data annotation app in streamlit in 5 min!")
 
+# Initialize connection.
+conn = st.connection("postgresql", type="sql")
+q = """SELECT * FROM workdesk_ridereport ORDER BY st_d_time DESC"""
+# Perform query.
+dft = conn.query(q, ttl="10m")
+
+st.dataframe(dft)        
+
 st.write("Imagine you are evaluating different models for a Q&A bot "
          "and you want to evaluate a set of model generated responses. "
         "You have collected some user data. "
