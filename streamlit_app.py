@@ -14,12 +14,16 @@ q = """SELECT * FROM workdesk_ridereport ORDER BY st_d_time DESC"""
 # Perform query.
 dft = conn.query(q, ttl="10m")
 
-st.dataframe(dft)        
+st.dataframe(dft, column_config={
+        "vehicle": "Vehicle",
+        "st_d_time": "Start Time",
+        "start_address": "Start Address",
+        "ed_d_time": "Start Time",
+        "end_address": "Start Address",
+        "total_distance_km": "Distance Travelled",
+        "d_duration": "Travel Duration"
+        })        
 
-st.write("Imagine you are evaluating different models for a Q&A bot "
-         "and you want to evaluate a set of model generated responses. "
-        "You have collected some user data. "
-         "Here is a sample question and response set.")
 
 data = {
     "Questions": 
