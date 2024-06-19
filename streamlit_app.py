@@ -14,6 +14,11 @@ q = """SELECT vehicle, st_d_time, start_address, ed_d_time, end_address, total_d
 # Perform query.
 dft = conn.query(q, ttl="10m")
 
+dfb = pd.DataFrame(dft)
+counts = dfb['start_address'].value_counts()
+
+st.write(counts)
+
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
         "st_d_time": "Start Time",
