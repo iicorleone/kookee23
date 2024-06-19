@@ -17,8 +17,17 @@ dft = conn.query(q, ttl="10m")
 dfb = pd.DataFrame(dft)
 counts = dfb['start_address'].value_counts()
 print(counts)
-
+st.write("Most Visited Locations")
 st.dataframe(counts)
+
+# Dropdown for filtering
+category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
+
+# Filter data
+filtered_data = dfb[dfb['vehicle'] == category]
+st.write("Results")
+# Display filtered data
+st.write(filtered_data)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
