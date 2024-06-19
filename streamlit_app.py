@@ -24,7 +24,7 @@ st.dataframe(counts)
 category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
 
 # Filter data
-filtered_data = dfb[dfb['vehicle'] == category]
+filtered_data = dfb[dfb['vehicle'] == category].value_counts()
 st.write("Results")
 # Display filtered data
 st.write(filtered_data)
