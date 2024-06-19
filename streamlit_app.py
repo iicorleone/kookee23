@@ -24,10 +24,10 @@ st.dataframe(counts)
 category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
 
 # Filter data
-filtered_data = dfb[dfb['vehicle'] == category].value_counts()
+filtered_data = dfb[dfb['vehicle'] == category]
 st.write("Results")
 # Display filtered data
-st.write(filtered_data)
+st.write(filtered_data['start_address'].value_counts())
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
