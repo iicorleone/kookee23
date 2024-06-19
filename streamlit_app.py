@@ -18,7 +18,7 @@ dfb = pd.DataFrame(dft)
 counts = dfb['start_address'].value_counts()
 print(counts)
 
-st.text(counts)
+st.dataframe(counts)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
