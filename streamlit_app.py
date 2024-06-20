@@ -5,9 +5,7 @@ import datetime as dt
 import pytz
 
 st.set_page_config(page_title="Cellserv Tracking - Kookee Enterprises Dashboard", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None)
-st.markdown("UAN 020N and UAW 109Z")
 
-st.write("A breakdown of locations visited by UAN 020N and UAW 109Z ")
 
 # Initialize connection.
 conn = st.connection("postgresql", type="sql")
@@ -18,10 +16,14 @@ dft = conn.query(q, ttl="10m")
 dfb = pd.DataFrame(dft)
 counts = dfb['start_address'].value_counts()
 st.write("Most Visited Locations")
-st.dataframe(counts)
+# st.dataframe(counts)
 
 #Sidebar
 with st.sidebar:
+    st.markdown("UAN 020N and UAW 109Z")
+
+    st.write("A breakdown of locations visited by UAN 020N and UAW 109Z")
+    st.write("Select suitable dates or vehicle to see results for specific dates or vehicle")
 #Date Range Filter
     start_date = st.date_input('Start date', value=dt.date(2023, 6, 1))
     end_date = st.date_input('End date', value=dt.date(2024,2,29))
@@ -99,17 +101,17 @@ st.dataframe(merged_df, column_config={
 # st.write(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
 
 # Render the dataframe as Markdown
-st.markdown(merged_df.to_markdown(index=False, tablefmt="grid"), unsafe_allow_html=True)
+# st.markdown(merged_df.to_markdown(index=False, tablefmt="grid"), unsafe_allow_html=True)
 
-st.dataframe(dft, column_config={
-        "vehicle": "Vehicle",
-        "st_d_time": "Start Time",
-        "start_address": "Start Address",
-        "ed_d_time": "End Time",
-        "end_address": "End Address",
-        "total_distance_km": "Distance Travelled",
-        "d_duration": "Travel Duration"
-        })        
+# st.dataframe(dft, column_config={
+#         "vehicle": "Vehicle",
+#         "st_d_time": "Start Time",
+#         "start_address": "Start Address",
+#         "ed_d_time": "End Time",
+#         "end_address": "End Address",
+#         "total_distance_km": "Distance Travelled",
+#         "d_duration": "Travel Duration"
+#         })        
 
 
 st.write("Here we are at the end of getting started with streamlit! Happy Streamlit-ing! :balloon:")
