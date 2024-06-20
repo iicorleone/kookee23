@@ -11,7 +11,7 @@ st.write("A breakdown of locations visited by UAN 020N and UAW 109Z ")
 
 # Initialize connection.
 conn = st.connection("postgresql", type="sql")
-q = """SELECT vehicle, st_d_time, start_address, ed_d_time, end_address, total_distance_km, d_duration FROM workdesk_ridereport WHERE d_duration < '5 hours' ORDER BY st_d_time DESC"""
+q = """SELECT vehicle, st_d_time, start_address, start_coordinate, ed_d_time, end_address, end_coordinate, total_distance_km, d_duration FROM workdesk_ridereport WHERE d_duration < '5 hours' ORDER BY st_d_time DESC"""
 # Perform query.
 dft = conn.query(q, ttl="10m")
 
