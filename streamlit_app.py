@@ -26,7 +26,7 @@ st.dataframe(counts)
 start_date = st.date_input('Start date', datetime.today(), format="DD-MM-YYYY")
 end_date = st.date_input('End date', datetime.today(), format="DD-MM-YYYY")
 
-filtered_df = dfb[(pd.to_datetime(dfb['st_d_time'] >= start_date)) & (pd.to_datetime(dfb['st_d_time']) <= end_date)]
+filtered_df = dfb[(dfb['st_d_time'] >= pd.to_datetime(start_date)) & (dfb['st_d_time'] <= pd.to_datetime(end_date))]
 st.write("Results By Date")
 st.dataframe(filtered_df['start_address'].value_counts(), column_config={
     "vehicle": "Vehicle", "start_address": "Start Address",})
