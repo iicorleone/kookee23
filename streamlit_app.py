@@ -95,6 +95,9 @@ merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url,
 # Create a Streamlit dataframe with Markdown enabled
 st.write(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
 
+# Render the dataframe as Markdown
+st.markdown(merged_df.to_markdown(index=False, tablefmt="grid"), unsafe_allow_html=True)
+
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
         "st_d_time": "Start Time",
