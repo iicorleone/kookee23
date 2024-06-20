@@ -26,7 +26,7 @@ st.dataframe(counts)
 start_date = st.date_input('Start date', datetime.today())
 end_date = st.date_input('End date', datetime.today())
 
-filtered_df = dfb[(dfb['st_d_time'] >= start_date) & (dfb['st_d_time'] <= end_date)]
+filtered_df = dfb[(dfb['st_d_time'] >= start_date.tz_localize(None)) & (dfb['st_d_time'] <= end_date.tz_localize(None))]
 st.write("Results By Date")
 st.dataframe(filtered_df['start_address'].value_counts(), column_config={
     "vehicle": "Vehicle", "start_address": "Start Address",})
