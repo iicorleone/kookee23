@@ -61,7 +61,7 @@ def create_clickable_google_maps_url(row):
     coordinates = row['start_coordinate']
     coordinates = coordinates.strip('[]')  # Remove square brackets
     latitude, longitude = coordinates.split(',')  # Split into two values
-    url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
+    url = f"https://www.google.com/maps/search/?api=1&query={longitude}%2C{latitude}"
     link = f"<a href='{url}' target='_blank'>View on Google Maps</a>"
     return link
 
@@ -75,6 +75,10 @@ st.dataframe(merged_df,
     "google_maps_url": "Google Maps Link (Click to Open Location)",
     "count": "Visits"}
 )
+
+# Render the HTML links
+for index, row in merged_df.iterrows():
+    st.write(f"{row['google_maps_url']}", unsafe_allow_html=True)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
