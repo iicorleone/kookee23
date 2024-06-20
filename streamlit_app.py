@@ -44,14 +44,21 @@ st.write("Results By Date and Vehicle")
 # Create a dictionary to map start_address to start_coordinate
 address_to_coordinate = dfb.set_index('start_address')['start_coordinate'].to_dict()
 
+# Create a new dataframe with the mapped address_to_coordinate dictionary
+coordinate_df = pd.DataFrame({'start_address': list(address_to_coordinate.keys()), 
+                              'start_coordinate': list(address_to_coordinate.values())})
+
+# Merge the coordinate_df with count_df
+merged_df = pd.merge(coordinate_df, count_df, on='start_address')
+
 # Create a new column in count_df with the mapped start_coordinates
 count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
 
 # Reset the index to get a clean dataframe
 count_df = count_df.reset_index()
 
-st.dataframe(count_df, column_config={
-    "vehicle": "Vehicle",
+st.dataframe(merged_df, column_config={
+    #"vehicle": "Vehicle",
     "start_address": "Start Address",
     "start_coordinate": "GPS Coordinates",
     "count": "Visits"})
