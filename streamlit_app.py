@@ -94,7 +94,10 @@ def create_clickable_google_maps_url(row):
 # Apply the function to each row in merged_df
 merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
 st.dataframe(merged_df, column_config={
-        "google_maps_url": st.column_config.LinkColumn("Click to Open Location on Google")
+        "google_maps_url": st.column_config.LinkColumn("Click to Open Location on Google"),
+        "start_address" : "Address",
+        "start_coordinate" : "GPS Coordinates",
+        "count" : "Visits"
     })
 
 # # Create a Streamlit dataframe with Markdown enabled
