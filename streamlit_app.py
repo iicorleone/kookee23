@@ -57,28 +57,43 @@ count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
 count_df = count_df.reset_index()
 # Define a function to create the Google Maps URL
 # Define a function to create a clickable Google Maps URL
+# def create_clickable_google_maps_url(row):
+#     coordinates = row['start_coordinate']
+#     coordinates = coordinates.strip('[]')  # Remove square brackets
+#     latitude, longitude = coordinates.split(',')  # Split into two values
+#     url = f"https://www.google.com/maps/search/?api=1&query={longitude}%2C{latitude}"
+#     link = f"<a href='{url}' target='_blank'>View on Google Maps</a>"
+#     return link
+
+# # Apply the function to each row in merged_df
+# merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
+
+# st.dataframe(merged_df,
+#              column_config={
+#     "start_address": "Address",
+#     "start_coordinate": "GPS Coordinates",
+#     "google_maps_url": "Google Maps Link (Click to Open Location)",
+#     "count": "Visits"}
+# )
+
+# # Render the HTML links
+# for index, row in merged_df.iterrows():
+#     st.write(f"{row['google_maps_url']}", unsafe_allow_html=True)
+
+# Define a function to create a clickable Google Maps URL
 def create_clickable_google_maps_url(row):
     coordinates = row['start_coordinate']
     coordinates = coordinates.strip('[]')  # Remove square brackets
     latitude, longitude = coordinates.split(',')  # Split into two values
-    url = f"https://www.google.com/maps/search/?api=1&query={longitude}%2C{latitude}"
-    link = f"<a href='{url}' target='_blank'>View on Google Maps</a>"
+    url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
+    link = f"[View on Google Maps]({url})"
     return link
 
 # Apply the function to each row in merged_df
 merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
 
-st.dataframe(merged_df,
-             column_config={
-    "start_address": "Address",
-    "start_coordinate": "GPS Coordinates",
-    "google_maps_url": "Google Maps Link (Click to Open Location)",
-    "count": "Visits"}
-)
-
-# Render the HTML links
-for index, row in merged_df.iterrows():
-    st.write(f"{row['google_maps_url']}", unsafe_allow_html=True)
+# Create a Streamlit dataframe with Markdown enabled
+st.dataframe(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
