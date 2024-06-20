@@ -40,7 +40,7 @@ filtered_df = dfb[(dfb['st_d_time'] >= start_datetime) & (dfb['st_d_time'] <= en
 count_df = filtered_df['start_address'].value_counts()
 
 
-st.write("Results By Date and Vehicle")
+st.write(f"""Results from {start_date} to {end_date} for Vehicle {category}""")
 
 # Create a dictionary to map start_address to start_coordinate
 address_to_coordinate = dfb.set_index('start_address')['start_coordinate'].to_dict()
