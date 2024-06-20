@@ -23,8 +23,8 @@ st.dataframe(counts)
 
 
 #Date Range Filter
-start_date = st.date_input('Start date', datetime.today(), format="DD-MM-YYYY")
-end_date = st.date_input('End date', datetime.today(), format="DD-MM-YYYY")
+start_date = st.date_input('Start date', datetime.today())
+end_date = st.date_input('End date', datetime.today())
 
 filtered_df = dfb[(dfb['st_d_time'] >= pd.to_datetime(start_date)) & (dfb['st_d_time'] <= pd.to_datetime(end_date))]
 st.write("Results By Date")
