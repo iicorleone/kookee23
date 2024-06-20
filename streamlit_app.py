@@ -86,7 +86,7 @@ def create_clickable_google_maps_url(row):
     coordinates = coordinates.strip('[]')  # Remove square brackets
     latitude, longitude = coordinates.split(',')  # Split into two values
     url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
-    link = f"<a href=({url})>[View on Google Maps]</a>"
+    link = f"""<a href="{url}">[View on Google Maps]</a>"""
     return link
 
 # Apply the function to each row in merged_df
