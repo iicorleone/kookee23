@@ -57,8 +57,8 @@ count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
 count_df = count_df.reset_index()
 # Define a function to create the Google Maps URL
 def create_google_maps_url(row):
-    latitude, longitude = row['start_coordinate']
-    url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
+    coordinates = row['start_coordinate']
+    url = f"https://www.google.com/maps/search/?api=1&query={coordinates[0]}%2C{coordinates[1]}"
     return url
 
 # Apply the function to each row in merged_df
