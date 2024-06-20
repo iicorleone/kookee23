@@ -55,18 +55,13 @@ count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
 
 # Reset the index to get a clean dataframe
 count_df = count_df.reset_index()
-st.write("GPS DF")
-st.dataframe(coordinate_df)
-st.write("Count DF")
-st.dataframe(count_df)
-st.write("Merged")
-st.dataframe(merged_df)
-    #          column_config={
-    # #"vehicle": "Vehicle",
-    # "start_address": "Start Address",
-    # "start_coordinate": "GPS Coordinates",
-    # "count": "Visits"
-    
+
+st.dataframe(merged_df,
+             column_config={
+    "start_address": "Address",
+    "start_coordinate": "GPS Coordinates",
+    "count": "Visits"}
+)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
