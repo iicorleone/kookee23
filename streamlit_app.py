@@ -52,8 +52,8 @@ count_df = count_df.reset_index()
 
 st.dataframe(count_df, column_config={
     "vehicle": "Vehicle",
-    "st_d_time": "Start Time",
     "start_address": "Start Address",
+    "start_coordinate": "GPS Coordinates",
     "count": "Visits"})
 
 st.dataframe(dft, column_config={
