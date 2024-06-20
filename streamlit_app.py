@@ -85,15 +85,18 @@ def create_clickable_google_maps_url(row):
     coordinates = row['start_coordinate']
     coordinates = coordinates.strip('[]')  # Remove square brackets
     latitude, longitude = coordinates.split(',')  # Split into two values
-    url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
+    url = f"https://www.google.com/maps/search/?api=1&query={longitude}%2C{latitude}"
     link = f"""<a href="{url}">[View on Google Maps]</a>"""
-    return link
+    return url
 
 # Apply the function to each row in merged_df
 merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
+st.dataframe(merged_df, column_config={
+        "google_maps_url": st.column_config.LinkColumn()
+    })
 
-# Create a Streamlit dataframe with Markdown enabled
-st.write(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
+# # Create a Streamlit dataframe with Markdown enabled
+# st.write(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
 
 # Render the dataframe as Markdown
 st.markdown(merged_df.to_markdown(index=False, tablefmt="grid"), unsafe_allow_html=True)
