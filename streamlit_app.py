@@ -1,6 +1,7 @@
 import streamlit as st 
 import pandas as pd
 from datetime import datetime
+import pytz
 
 st.balloons()
 st.markdown("# Data Evaluation App")
@@ -26,7 +27,11 @@ st.dataframe(counts)
 start_date = st.date_input('Start date', datetime.today())
 end_date = st.date_input('End date', datetime.today())
 
-filtered_df = dfb[(dfb['st_d_time'] >= start_date.tz_localize(None)) & (dfb['st_d_time'] <= end_date.tz_localize(None))]
+# Convert start_date and end_date to datetime objects with a timezone
+start_datetime = datetime.combine(start_date, datetime.min).replace(tzinfo=pytz.utc)
+end_datetime = datetime.combine(end_date, datetime.min).replace(tzinfo=pytz.utc)
+
+filtered_df = dfb[(dfb['st_d_time'] >= start_datetime.tz_localize(None)) & (dfb['st_d_time'] <= end_datetime.tz_localize(None))]
 st.write("Results By Date")
 st.dataframe(filtered_df['start_address'].value_counts(), column_config={
     "vehicle": "Vehicle", "start_address": "Start Address",})
