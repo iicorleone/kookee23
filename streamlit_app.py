@@ -23,8 +23,8 @@ st.dataframe(counts)
 #Sidebar
 with st.sidebar:
 #Date Range Filter
-    start_date = st.date_input('Start date', datetime.date(2023,06,01))
-    end_date = st.date_input('End date', datetime.date(2024,02,29))
+    start_date = st.date_input('Start date', datetime.date(2023,6,1))
+    end_date = st.date_input('End date', datetime.date(2024,2,29))
 
     # Dropdown for filtering Vehicle
     category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
