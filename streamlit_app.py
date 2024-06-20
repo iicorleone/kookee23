@@ -23,10 +23,10 @@ st.dataframe(counts)
 
 
 #Date Range Filter
-start_date = st.date_input('Start date', datetime.today())
-end_date = st.date_input('End date', datetime.today())
+start_date = st.date_input('Start date', datetime.today(), format="DD-MM-YYYY")
+end_date = st.date_input('End date', datetime.today(), format="DD-MM-YYYY")
 
-filtered_df = dfb[(dfb['st_d_time'] >= start_date) & (dfb['st_d_time'] <= end_date)]
+filtered_df = dfb[(dfb['st_d_time'].dt.strftime('%d-%m-%Y') >= start_date) & (dfb['st_d_time'].dt.strftime('%d-%m-%Y') <= end_date)]
 st.write("Results By Date")
 st.dataframe(filtered_df['start_address'].value_counts(), column_config={
     "vehicle": "Vehicle", "start_address": "Start Address",})
