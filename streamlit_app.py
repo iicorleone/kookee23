@@ -93,7 +93,7 @@ def create_clickable_google_maps_url(row):
 merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
 
 # Create a Streamlit dataframe with Markdown enabled
-st.dataframe(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
+st.write(merged_df.style.format({"google_maps_url": lambda x: x}), width=1000)
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
