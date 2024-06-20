@@ -1,6 +1,7 @@
 import streamlit as st 
 import pandas as pd
 from datetime import datetime, time
+import datetime as dt
 import pytz
 
 st.set_page_config(page_title="Cellserv Tracking - Kookee Enterprises Dashboard", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None)
@@ -23,8 +24,8 @@ st.dataframe(counts)
 #Sidebar
 with st.sidebar:
 #Date Range Filter
-    start_date = st.date_input('Start date', value=datetime.date(2023, 6, 1))
-    end_date = st.date_input('End date', value=datetime.date(2024,2,29))
+    start_date = st.date_input('Start date', value=dt.date(2023, 6, 1))
+    end_date = st.date_input('End date', value=dt.date(2024,2,29))
 
     # Dropdown for filtering Vehicle
     category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
