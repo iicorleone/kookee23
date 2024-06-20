@@ -38,7 +38,10 @@ filtered_df = dfb[(dfb['st_d_time'] >= start_datetime) & (dfb['st_d_time'] <= en
 
 st.write("Results By Date and Vehicle")
 st.dataframe(filtered_df['start_address'].value_counts(), column_config={
-    "start_address": "Start Address",})
+    "vehicle": "Vehicle",
+    "st_d_time": "Start Time",
+    "start_address": "Start Address",
+    "counts": "Visits"})
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
