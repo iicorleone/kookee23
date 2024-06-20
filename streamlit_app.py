@@ -1,5 +1,6 @@
 import streamlit as st 
 import pandas as pd
+import datetime
 
 st.balloons()
 st.markdown("# Data Evaluation App")
@@ -20,14 +21,25 @@ print(counts)
 st.write("Most Visited Locations")
 st.dataframe(counts)
 
-# Dropdown for filtering
-category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
 
+#Date Range Filter
+start_date = st.date_input('Start date', datetime.today())
+end_date = st.date_input('End date', datetime.today())
+
+filtered_df = dfb[(dfb['st_d_time'] >= start_date) & (dfb['st_d_time'] <= end_date)]
+st.write("Results By Date")
+st.dataframe(filtered_df['start_address'].value_counts(), column_config={
+    "vehicle": "Vehicle", "start_address": "Start Address",})
+
+
+# Dropdown for filtering Vehicle
+category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
 # Filter data
 filtered_data = dfb[dfb['vehicle'] == category]
 st.write("Results")
 # Display filtered data
-st.dataframe(filtered_data['start_address'].value_counts())
+st.dataframe(filtered_data['start_address'].value_counts(), column_config={
+    "vehicle": "Vehicle", "start_address": "Start Address",})
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
