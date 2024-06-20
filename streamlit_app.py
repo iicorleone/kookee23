@@ -56,13 +56,17 @@ count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
 # Reset the index to get a clean dataframe
 count_df = count_df.reset_index()
 # Define a function to create the Google Maps URL
-def create_google_maps_url(row):
+# Define a function to create a clickable Google Maps URL
+def create_clickable_google_maps_url(row):
     coordinates = row['start_coordinate']
-    url = f"https://www.google.com/maps/search/?api=1&query={coordinates[0]}%2C{coordinates[1]}"
-    return url
+    coordinates = coordinates.strip('[]')  # Remove square brackets
+    latitude, longitude = coordinates.split(',')  # Split into two values
+    url = f"https://www.google.com/maps/search/?api=1&query={latitude}%2C{longitude}"
+    link = f"<a href='{url}' target='_blank'>View on Google Maps</a>"
+    return link
 
 # Apply the function to each row in merged_df
-merged_df['google_maps_url'] = merged_df.apply(create_google_maps_url, axis=1)
+merged_df['google_maps_url'] = merged_df.apply(create_clickable_google_maps_url, axis=1)
 
 st.dataframe(merged_df,
              column_config={
