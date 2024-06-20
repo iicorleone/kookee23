@@ -36,13 +36,12 @@ end_datetime = datetime.combine(end_date, time()).replace(tzinfo=pytz.utc)
 # Filter data
 filtered_df = dfb[(dfb['st_d_time'] >= start_datetime) & (dfb['st_d_time'] <= end_datetime) & (dfb['vehicle'] == category)]
 
-st.write(f"""Results By Date and Vehicle for {start_date} - {end_date}""")
-grouped_df = filtered_df.groupby(['vehicle', 'start_address', 'st_d_time']).size().reset_index(name='Visits')
-st.dataframe(grouped_df, column_config={
+st.write("Results By Date and Vehicle")
+st.dataframe(filtered_df['start_address'].value_counts(), column_config={
     "vehicle": "Vehicle",
-    "start_address": "Address",
-    "st_d_time": "Visit Time",
-    "Visits": "Visits"})
+    "st_d_time": "Start Time",
+    "start_address": "Start Address",
+    "count": "Visits"})
 
 st.dataframe(dft, column_config={
         "vehicle": "Vehicle",
