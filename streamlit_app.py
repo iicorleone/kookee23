@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, time
 import pytz
 
-
+st.set_page_config(page_title="Cellserv Tracking - Kookee Enterprises Dashboard", page_icon=None, layout="wide", initial_sidebar_state="auto", menu_items=None)
 st.markdown("UAN 020N and UAW 109Z")
 
 st.write("A breakdown of locations visited by UAN 020N and UAW 109Z ")
@@ -20,13 +20,14 @@ print(counts)
 st.write("Most Visited Locations")
 st.dataframe(counts)
 
-
+#Sidebar
+with st.sidebar:
 #Date Range Filter
-start_date = st.date_input('Start date', datetime.today())
-end_date = st.date_input('End date', datetime.today())
+    start_date = st.date_input('Start date', datetime.today())
+    end_date = st.date_input('End date', datetime.today())
 
-# Dropdown for filtering Vehicle
-category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
+    # Dropdown for filtering Vehicle
+    category = st.selectbox('Select a vehicle:', dfb['vehicle'].unique())
 
 # Convert start_date and end_date to datetime objects with a timezone
 start_datetime = datetime.combine(start_date, time()).replace(tzinfo=pytz.utc)
