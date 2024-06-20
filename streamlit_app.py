@@ -36,9 +36,21 @@ end_datetime = datetime.combine(end_date, time()).replace(tzinfo=pytz.utc)
 
 # Filter data
 filtered_df = dfb[(dfb['st_d_time'] >= start_datetime) & (dfb['st_d_time'] <= end_datetime) & (dfb['vehicle'] == category)]
+count_df = filtered_df['start_address'].value_counts()
+
 
 st.write("Results By Date and Vehicle")
-st.dataframe(filtered_df['start_address'].value_counts(), column_config={
+
+# Create a dictionary to map start_address to start_coordinate
+address_to_coordinate = dfb.set_index('start_address')['start_coordinate'].to_dict()
+
+# Create a new column in count_df with the mapped start_coordinates
+count_df['start_coordinate'] = count_df.index.map(address_to_coordinate)
+
+# Reset the index to get a clean dataframe
+count_df = count_df.reset_index()
+
+st.dataframe(count_df, column_config={
     "vehicle": "Vehicle",
     "st_d_time": "Start Time",
     "start_address": "Start Address",
